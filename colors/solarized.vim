@@ -4,7 +4,7 @@
 "           (see this url for latest release & screenshots)
 " License:  OSI approved MIT license (see end of this file)
 " Created:  In the middle of the night
-" Modified: 2011 May 05
+" Modified: 2012 Dec 18
 "
 " Usage "{{{
 "
@@ -19,8 +19,8 @@
 " ---------------------------------------------------------------------
 " OPTIONS:
 " ---------------------------------------------------------------------
-" See the "solarized.txt" help file included with this colorscheme (in the 
-" "doc" subdirectory) for information on options, usage, the Toggle Background 
+" See the "solarized.txt" help file included with this colorscheme (in the
+" "doc" subdirectory) for information on options, usage, the Toggle Background
 " function and more. If you have already installed Solarized, this is available 
 " from the Solarized menu and command line as ":help solarized"
 "
@@ -36,7 +36,7 @@
 "     and unarchive the file.
 " 2.  Move `solarized.vim` to your `.vim/colors` directory.
 " 3.  Move each of the files in each subdirectories to the corresponding .vim
-"     subdirectory (e.g. autoload/togglebg.vim goes into your .vim/autoload 
+"     subdirectory (e.g. autoload/togglebg.vim goes into your .vim/autoload
 "     directory as .vim/autoload/togglebg.vim).
 "
 " RECOMMENDED PATHOGEN INSTALLATION OPTION:
@@ -131,7 +131,7 @@
 "
 " }}}
 " Environment Specific Overrides "{{{
-" Allow or disallow certain features based on current terminal emulator or 
+" Allow or disallow certain features based on current terminal emulator or
 " environment.
 
 " Terminals that support italics
@@ -368,10 +368,11 @@ endif
 "}}}
 " Background value based on termtrans setting "{{{
 " ---------------------------------------------------------------------
-if (has("gui_running") || g:solarized_termtrans == 0)
+if (has('gui_running') || g:solarized_termtrans == 0)
     let s:back        = s:base03
 else
-    let s:back        = "NONE"
+    let s:back        = 'NONE'
+    let s:base02      = '0'
 endif
 "}}}
 " Alternate light scheme "{{{
@@ -474,10 +475,10 @@ exe "let s:fg_cyan      = ' ".s:vmode."fg=".s:cyan   ."'"
 
 exe "let s:fmt_none     = ' ".s:vmode."=NONE".          " term=NONE".    "'"
 exe "let s:fmt_bold     = ' ".s:vmode."=NONE".s:b.      " term=NONE".s:b."'"
-exe "let s:fmt_bldi     = ' ".s:vmode."=NONE".s:b.      " term=NONE".s:b."'"
+exe "let s:fmt_bldi     = ' ".s:vmode."=NONE".s:b.s:i.  " term=NONE".s:b.s:i."'"
 exe "let s:fmt_undr     = ' ".s:vmode."=NONE".s:u.      " term=NONE".s:u."'"
 exe "let s:fmt_undb     = ' ".s:vmode."=NONE".s:u.s:b.  " term=NONE".s:u.s:b."'"
-exe "let s:fmt_undi     = ' ".s:vmode."=NONE".s:u.      " term=NONE".s:u."'"
+exe "let s:fmt_undi     = ' ".s:vmode."=NONE".s:u.s:i.  " term=NONE".s:u.s:i."'"
 exe "let s:fmt_uopt     = ' ".s:vmode."=NONE".s:ou.     " term=NONE".s:ou."'"
 exe "let s:fmt_curl     = ' ".s:vmode."=NONE".s:c.      " term=NONE".s:c."'"
 exe "let s:fmt_ital     = ' ".s:vmode."=NONE".s:i.      " term=NONE".s:i."'"
@@ -529,6 +530,23 @@ else
     let s:sp_blue      = ""
     let s:sp_cyan      = ""
 endif
+"}}}
+" Export variables in a global dictionary"{{{
+" ---------------------------------------------------------------------
+
+let s:varnames = [
+	\ 'none','back','base03','base02','base01','base00','base0','base1','base2','base3',
+	\ 'green','yellow','orange','red','magenta','violet','blue','cyan',
+	\ 'bold','bldi','undr','undb','undi','uopt','curl','ital','stnd','revr','revb','revbb','revbbu']
+
+let g:solarized_vars = {}
+for item in s:varnames
+	for prefix in ['fg_','bg_','fmt_']
+		if exists('s:' . prefix . item)
+			exe "let g:solarized_vars['" . prefix . item . "']=s:" . prefix . item
+		endif
+	endfor
+endfor
 
 "}}}
 " Basic highlighting"{{{
@@ -589,7 +607,7 @@ exe "hi! Underlined"     .s:fmt_none   .s:fg_violet .s:bg_none
 exe "hi! Ignore"         .s:fmt_none   .s:fg_none   .s:bg_none
 "       *Ignore          left blank, hidden  |hl-Ignore|
 
-exe "hi! Error"          .s:fmt_bold   .s:fg_red    .s:bg_none
+exe "hi! Error"          .s:fmt_bold   .s:fg_none   .s:bg_red
 "       *Error           any erroneous construct
 
 exe "hi! Todo"           .s:fmt_bold   .s:fg_magenta.s:bg_none
@@ -606,12 +624,12 @@ elseif  (g:solarized_visibility=="low")
     exe "hi! SpecialKey" .s:fmt_bold   .s:fg_base02 .s:bg_none
     exe "hi! NonText"    .s:fmt_bold   .s:fg_base02 .s:bg_none
 else
-    exe "hi! SpecialKey" .s:fmt_bold   .s:fg_base00 .s:bg_base02
+    exe "hi! SpecialKey" .s:fmt_bold   .s:fg_base00 .s:bg_none
     exe "hi! NonText"    .s:fmt_bold   .s:fg_base00 .s:bg_none
 endif
 exe "hi! StatusLine"     .s:fmt_none   .s:fg_base1  .s:bg_base02 .s:fmt_revbb
 exe "hi! StatusLineNC"   .s:fmt_none   .s:fg_base00 .s:bg_base02 .s:fmt_revbb
-exe "hi! Visual"         .s:fmt_none   .s:fg_base01 .s:bg_base03 .s:fmt_revbb
+exe "hi! Visual"         .s:fmt_none   .s:fg_none   .s:bg_base02
 exe "hi! Directory"      .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! ErrorMsg"       .s:fmt_revr   .s:fg_red    .s:bg_none
 exe "hi! IncSearch"      .s:fmt_stnd   .s:fg_orange .s:bg_none
@@ -619,6 +637,7 @@ exe "hi! Search"         .s:fmt_revr   .s:fg_yellow .s:bg_none
 exe "hi! MoreMsg"        .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! ModeMsg"        .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! LineNr"         .s:fmt_none   .s:fg_base01 .s:bg_base02
+exe 'hi! CursorLineNr'   .s:fmt_bold   .s:fg_base0  .s:bg_base02
 exe "hi! Question"       .s:fmt_bold   .s:fg_cyan   .s:bg_none
 if ( has("gui_running") || &t_Co > 8 )
     exe "hi! VertSplit"  .s:fmt_none   .s:fg_base00 .s:bg_base00
@@ -654,7 +673,6 @@ exe "hi! DiffDelete"     .s:fmt_none   .s:fg_red    .s:bg_base02
 exe "hi! DiffText"       .s:fmt_none   .s:fg_blue   .s:bg_base02 .s:sp_blue
     endif
 endif
-exe "hi! SignColumn"     .s:fmt_none   .s:fg_base0
 exe "hi! Conceal"        .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! SpellBad"       .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_red
 exe "hi! SpellCap"       .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_violet
@@ -673,6 +691,19 @@ exe "hi! ColorColumn"    .s:fmt_none   .s:fg_none   .s:bg_base02
 exe "hi! Cursor"         .s:fmt_none   .s:fg_base03 .s:bg_base0
 hi! link lCursor Cursor
 exe "hi! MatchParen"     .s:fmt_bold   .s:fg_red    .s:bg_base01
+
+" ShowMarks support, better looking SignColumn
+hi! link SignColumn   LineNr
+hi! link ShowMarksHLl DiffAdd
+hi! link ShowMarksHLu DiffChange
+hi! link ShowMarksHLo DiffAdd
+hi! link ShowMarksHLm DiffChange
+
+" Better looking popup menu (for omnicomplete)
+hi! link PMenu DiffAdd 
+hi! link PMenuSel DiffChange
+hi! link PMenuSbar DiffAdd 
+hi! link PMenuThumb DiffAdd
 
 "}}}
 " vim syntax highlighting "{{{
@@ -995,8 +1026,8 @@ function! s:SolarizedHiTrail()
     if g:solarized_hitrail==0
         hi! clear solarizedTrailingSpace
     else
-        syn match solarizedTrailingSpace "\s*$"
         exe "hi! solarizedTrailingSpace " .s:fmt_undr .s:fg_red .s:bg_none .s:sp_red
+        match solarizedTrailingSpace "\s\+$"
     endif
 endfunction  
 augroup SolarizedHiTrail
@@ -1114,4 +1145,50 @@ autocmd ColorScheme * if g:colors_name != "solarized" | silent! aunmenu Solarize
 " THE SOFTWARE.
 "
 " vim:foldmethod=marker:foldlevel=0
+"}}}
+" Modifications by @skwp to improve Solarized for Ruby development"{{{
+" Customizations by @skwp for better readability
+" If statements and def statements should look similar
+" so you can see the flow
+hi! link rubyDefine rubyControl
+
+" This is a better cursor
+hi! link Cursor VisualNOS
+
+" Search is way too distracting in original Solarized
+hi! link Search DiffAdd
+
+" Colors to make LustyJuggler more usable
+" the Question color in LustyJuggler is mapped to
+" the currently selected buffer.
+hi! clear Question
+hi! Question guifg=yellow
+
+hi! link TagListFileName  Question
+
+" For jasmine.vim
+hi! link specFunctions rubyDefine
+hi! link specMatcher rubyConstant
+hi! link specSpys rubyConstant
+
+" Better indication of current buffer
+hi! link StatusLine DiffChange
+hi! link StatusLineNC DiffADd
+hi! VertSplit guifg=#002b36 guibg=#002b36
+
+" Ruby, slightly better colors for solarized
+hi! link rubyStringDelimiter rubyConstant
+hi! link rubyInterpolationDelimiter rubyConstant
+hi! link rubySymbol Structure
+
+" For R and other languages that use Delimiters, we don't want them red
+hi! link Delimiter Identifier
+hi! link rDollar Identifier
+
+" For vimscript, don' tlike red..
+hi! link vimMapModKey Operator
+hi! link vimNotation Label
+
+" Better json highlighting
+hi! link htmlArg Label
 "}}}
