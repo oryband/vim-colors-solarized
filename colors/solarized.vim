@@ -1161,8 +1161,11 @@ hi! link Search DiffAdd
 " Colors to make LustyJuggler more usable
 " the Question color in LustyJuggler is mapped to
 " the currently selected buffer.
-hi! clear Question
-hi! Question guifg=yellow
+" NOTE: blueyed> with bg=light, this causes the ENTER prompt in gvim to be
+"       unreadable and :LustyJuggler works just fine without it.
+"       Should get done only for bg=dark, but there it is OK, too.
+" hi! clear Question
+" hi! Question guifg=yellow
 
 hi! link TagListFileName  Question
 
