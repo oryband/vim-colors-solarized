@@ -10,6 +10,7 @@ Author: Ethan Schoonover
 Colors: light yellow
 Created:  2011 Mar 15
 Modified: 2014 Aprl 28
+
 ---
 
 Solarized Colorscheme for Vim
