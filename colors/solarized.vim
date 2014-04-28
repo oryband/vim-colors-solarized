@@ -729,9 +729,9 @@ hi! link ShowMarksHLo DiffAdd
 hi! link ShowMarksHLm DiffChange
 
 " Better looking popup menu (for omnicomplete)
-hi! link PMenu DiffAdd 
+hi! link PMenu DiffAdd
 hi! link PMenuSel DiffChange
-hi! link PMenuSbar DiffAdd 
+hi! link PMenuSbar DiffAdd
 hi! link PMenuThumb DiffAdd
 
 "}}}
