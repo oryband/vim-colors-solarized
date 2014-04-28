@@ -1,8 +1,3 @@
-This is my fork of vim solarized colorscheme.
-I pulled commits from various users and made some changes of my own.
-See [commits](https://github.com/oryband/vim-colors-solarized/commits/master)
-for more info.
-
 ---
 Title: Solarized Colorscheme for Vim
 Description: Precision colors for machines and people
@@ -12,6 +7,11 @@ Created:  2011 Mar 15
 Modified: 2014 Aprl 28
 
 ---
+
+This is my fork of vim solarized colorscheme.
+I pulled commits from various users and made some changes of my own.
+See [commits](https://github.com/oryband/vim-colors-solarized/commits/master)
+for more info.
 
 Solarized Colorscheme for Vim
 =============================
