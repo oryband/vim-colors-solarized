@@ -707,7 +707,17 @@ exe "hi! SpellCap"       .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_violet
 exe "hi! SpellRare"      .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_cyan
 exe "hi! SpellLocal"     .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_yellow
 exe "hi! Pmenu"          .s:fmt_none   .s:fg_base0  .s:bg_base02  .s:fmt_revbb
-exe "hi! PmenuSel"       .s:fmt_none   .s:fg_base01 .s:bg_base2   .s:fmt_revbb
+if      (g:solarized_diffmode=="high")
+exe "hi! PmenuSel"       .s:fmt_revr   .s:fg_yellow .s:bg_none
+elseif  (g:solarized_diffmode=="low")
+exe "hi! PmenuSel"       .s:fmt_undr   .s:fg_yellow .s:bg_none   .s:sp_yellow
+else " normal
+    if has("gui_running")
+exe "hi! PmenuSel"       .s:fmt_bold   .s:fg_yellow .s:bg_base01 .s:sp_yellow
+    else
+exe "hi! PmenuSel"       .s:fmt_none   .s:fg_yellow .s:bg_base01 .s:sp_yellow
+    endif
+endif
 exe "hi! PmenuSbar"      .s:fmt_none   .s:fg_base2  .s:bg_base0   .s:fmt_revbb
 exe "hi! PmenuThumb"     .s:fmt_none   .s:fg_base0  .s:bg_base03  .s:fmt_revbb
 exe "hi! TabLine"        .s:fmt_undr   .s:fg_base0  .s:bg_base02  .s:sp_base0
@@ -729,9 +739,11 @@ hi! link ShowMarksHLm DiffChange
 
 " Better looking popup menu (for omnicomplete)
 hi! link PMenu DiffAdd
-hi! link PMenuSel DiffChange
 hi! link PMenuSbar DiffAdd
 hi! link PMenuThumb DiffAdd
+" PMenuSel has a custom brighter background color, and thus is set up ~30 lines
+" above here, the same way DiffChange was set.
+" hi! link PMenuSel DiffChange
 
 " Folded lines are colored like normal ones.
 hi! link Folded Normal
