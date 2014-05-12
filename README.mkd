@@ -144,9 +144,9 @@ by using the terminal's 16 ansi color values, you can set the correct, specific
 values for the Solarized palette).
 
 If you do use the custom terminal colors, solarized.vim should work out of the
-box for you. If you are using a terminal emulator that supports 256 colors and
-don't want to use the custom Solarized terminal colors, you will need to use
-the degraded 256-color scheme. To do so, simply add the following line *before*
+box for you. If you are using a terminal emulator that supports 256 colors and 
+don't want to use the custom Solarized terminal colors, you will need to use 
+the degraded 256 colorscheme. To do so, simply add the following line *before* 
 the `colorscheme solarized` line:
 
     let g:solarized_termcolors=256
